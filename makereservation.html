@@ -83,15 +83,17 @@
     </div>
   </div> -->
     <script>
+
+    
       var reservationid
         function reserveR(){
+          if(checkStartIsBeforeEnd()){
             var reservationDto = {};
             reservationDto.amountPeople = document.getElementById("amountPeople").value;
             reservationDto.beginDate = document.getElementById("beginDate").value;
             reservationDto.endDate = document.getElementById("endDate").value;
             reservationDto.breakfast = document.getElementById("breakfastCheck").checked;
             reservationDto.business = document.getElementById("businessCheck").checked;
-
             var guest = {};
             reservationDto.firstName = document.getElementById("firstName").value;
             reservationDto.lastName = document.getElementById("lastName").value;
@@ -109,7 +111,20 @@
             xhr.open("POST", "http://localhost:8080/addlinkedreservation", true)
             xhr.setRequestHeader("Content-Type","application/json");
             xhr.send(theJSON);
+          }
+          else{
+            alert("start datum kan niet na einddatum zijn")
+          }
         }
+
+        function checkStartIsBeforeEnd(){
+        if(new Date(document.getElementById("beginDate").value)< new Date(document.getElementById("endDate").value)){
+          return true
+        }
+        else{
+          return false;
+        }
+      }
         /* Currently all reservations need manual approval by admin (in reservations CRUD). Leaving these booking-status functions in case we need them later.
 
         function bookR(reservationid){
@@ -140,6 +155,8 @@
             xhr.send(reservationid);
         }
         */
+
+
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
