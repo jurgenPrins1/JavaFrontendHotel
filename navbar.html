@@ -69,8 +69,16 @@
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-          if(JSON.parse(xhr.responseText) == true){
+          var returnUser = JSON.parse(xhr.responseText);
+          console.log(returnUser);
+          if(returnUser.email != null){
+            sessionStorage.setItem("email", returnUser.email);
+            sessionStorage.setItem('points', returnUser.points);
+            sessionStorage.setItem('birthDate', returnUser.birthDate);
+            sessionStorage.setItem('userType', returnUser.userType);
+            console.log(sessionStorage.getItem('userType'));
             alert("login succesfull")
+            window.location.href='index.html';
           }
           else{
             alert("login unsuccesfull")
