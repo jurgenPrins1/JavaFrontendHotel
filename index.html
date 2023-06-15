@@ -149,7 +149,7 @@
     <div class="container text-center">
       <h1>Zoek beschikbare kamers</h1>
       <div class="hero-form">
-        <form action="/showRooms.html" method="GET">
+        <form action="/showRooms.html" method="GET" id="submitForm">
           <div class="form-group">
             <label for="checkInDate">Aankomst</label>
             <input type="date" class="form-control" id="checkInDate" name="checkInDate" required>
@@ -253,6 +253,18 @@
   });
 
   showReviews();
+
+  // Validation that check-in is before check-out
+  // Validation will occur when submit is clicked
+
+  document.getElementById("submitForm").addEventListener("submit", function(event) {
+    var checkInDateInput = new Date(document.getElementById("checkInDate").value);
+    var checkOutDateInput = new Date(document.getElementById("checkOutDate").value);
+    if (checkInDateInput >= checkOutDateInput){
+      event.preventDefault(); //Prevents the submission event
+      alert("Aankomst kan niet na vertrek zijn. Controleer uw opgegeven datums.");
+    }
+  });
 </script>
 </body>
 
